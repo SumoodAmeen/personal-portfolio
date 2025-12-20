@@ -5,7 +5,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import Hero from './components/Hero';
 import ClickSpark from './components/ClickAround';
 import AboutMe from './components/AboutMe';
-import AboutMe2 from './components/AboutMe2';
+import Routes from './components/Routes';
 import Navbar from './components/Navbar';
 import { ThemeProvider } from './components/theme-provider';
 
@@ -39,6 +39,7 @@ function App() {
         <ClickSpark sparkColor="#fff" sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
           <Navbar />
           <Hero />
+          <Routes />
           <AboutMe />
         </ClickSpark>
       </ThemeProvider>
