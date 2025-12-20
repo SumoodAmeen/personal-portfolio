@@ -48,6 +48,7 @@ const Navbar = () => {
                             <a
                                 href="#"
                                 className="text-2xl font-bold text-white tracking-wider"
+                                style={{ fontFamily: 'Ari, sans-serif' }}
                             >
                                 MSA
                             </a>
