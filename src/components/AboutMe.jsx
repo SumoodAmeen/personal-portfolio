@@ -5,7 +5,7 @@ import Shuffle from './ui/Shuffle'
 
 const AboutMe = () => {
     return (
-        <section id="about" className="bg-black text-white py-20 px-6 rounded-[50px] border border-zinc-800 md:px-2 lg:px-12 w-full flex flex-col items-center">
+        <section id="about" className="bg-black text-white py-20 px-6 rounded-t-[50px] border border-zinc-800 md:px-2 lg:px-12 w-full flex flex-col items-center">
             {/* Centered Section Title */}
             <div className="w-full flex justify-center mb-16">
                 <Shuffle

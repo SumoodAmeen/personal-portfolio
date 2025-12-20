@@ -36,10 +36,11 @@ function App() {
     <>
       {/* your entire website */}
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-        <Navbar />
-        <Hero />
-        <AboutMe />
-        <ClickSpark />
+        <ClickSpark sparkColor="#fff" sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
+          <Navbar />
+          <Hero />
+          <AboutMe />
+        </ClickSpark>
       </ThemeProvider>
     </>
   );
