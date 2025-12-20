@@ -5,7 +5,7 @@ import Shuffle from './ui/Shuffle'
 
 const AboutMe = () => {
     return (
-        <section id="about" className="bg-black text-white py-20 px-6 rounded-t-[50px] border border-zinc-800 md:px-2 lg:px-12 w-full flex flex-col items-center">
+        <section id="about" className="bg-black text-white py-20 px-6 rounded-t-[50px] border border-zinc-800 md:px-2 lg:px-25 w-full flex flex-col items-center">
             {/* Centered Section Title */}
             <div className="w-full flex justify-center mb-16">
                 <Shuffle
@@ -28,24 +28,31 @@ const AboutMe = () => {
             <div className="w-full flex flex-col md:flex-row gap-12 lg:gap-24 items-center">
                 {/* Left Side: Text Content */}
                 <div className="flex-1 space-y-8">
-                    <h2 className="text-5xl md:text-8xl font-light tracking-tight">
+                    <h2 className="text-xl md:text-8xl font-medium tracking-tight">
                         Mohammed Sumood Ameen
                     </h2>
 
                     <p className="text-gray-400 text-xl leading-relaxed w-3xl">
-                        I'm Sumood, a passionate Developer & Designer based in [Location].
-                        I specialize in crafting digital experiences that captivate and inspire,
-                        blending creativity with functionality to elevate products. The sjdh dhfg hdjdhd dhdh hdhff sfjfsj,
-                        dhfj dhjsdfn dfhdsfjh fh d jdje xhd jjs shhdhd djhsj. The sjdh dhfg hdjdhd dhdh hdhff sfjfsj,
-                        dhfj dhjsdfn dfhdsfjh fh d jdje xhd jjs shhdhd djhsj. The sjdh dhfg hdjdhd dhdh hdhff sfjfsj,
-                        dhfj dhjsdfn dfhdsfjh fh d jdje xhd jjs shhdhd djhsj.
+                        I am a Software Developer with a strong focus on building modern, scalable web applications, specializing
+                        in React-based development. I work extensively with React, Vite, and Next.js to create fast, responsive,
+                        and performance-optimized user interfaces, with an emphasis on clean component architecture, reusability,
+                        and seamless user experience. <br />
+
+                        Alongside frontend development, I build reliable backend systems using Django, and manage data-driven applications
+                        with PostgreSQL, MySQL, and SQLite. I am comfortable handling the full development lifecycle, from translating
+                        requirements into functional features to deployment and ongoing maintenance. <br />
+
+                        I have successfully delivered and hosted multiple production-level and client projects, collaborating with teams and
+                        stakeholders to ship stable, real-world solutions. My workflow includes Git and GitHub for version control and
+                        collaborative development. Currently, I am working as a Software Developer, continuously improving my React expertise
+                        while contributing to live applications.
                     </p>
 
                     <div className="w-full h-px bg-gray-800 my-8"></div>
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-3">
-                        {['Web Development', 'UI/UX Design', 'React', 'Tailwind', 'Python', 'Django'].map((skill, index) => (
+                        {['React.js', 'Vite', 'Next.js', 'Tailwind CSS', 'HTML', 'CSS', 'Web Development', 'Python', 'Django'].map((skill, index) => (
                             <span
                                 key={index}
                                 className="px-6 py-6 bg-zinc-900 border border-zinc-800 rounded-lg text-lg text-gray-300 hover:bg-zinc-800 transition-colors cursor-default"
