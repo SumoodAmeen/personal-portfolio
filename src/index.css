@@ -6,6 +6,10 @@
   font-display: swap;
 }
 
+body {
+  background-color: #000;
+}
+
 @import "tailwindcss";
 
 /* shadcn CSS variables for dark theme */

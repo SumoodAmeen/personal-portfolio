@@ -9,6 +9,7 @@ import Routes from './components/Routes';
 import Navbar from './components/Navbar';
 import { ThemeProvider } from './components/theme-provider';
 import Contact from './components/Contact';
+import Services from './components/Services';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,6 +43,7 @@ function App() {
           <Hero />
           <Routes />
           <AboutMe />
+          <Services />
           <Contact />
         </ClickSpark>
       </ThemeProvider>
