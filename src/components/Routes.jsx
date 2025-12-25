@@ -1,15 +1,20 @@
 import React from 'react';
 import placeholderImage from '../assets/IMG_6628.JPG';
+import Pill from '../assets/works/pill.png'
+import Insurva from '../assets/works/insurva.png'
+import Portfolio from '../assets/works/portfolio.png'
+import Security from '../assets/works/security.png'
+import Houseboat from '../assets/works/houseboat.png'
 
 const Routes = () => {
     // Project data - you can replace these with actual project data later
     const projects = [
-        { id: 1, image: placeholderImage, title: 'Project 1' },
+        { id: 1, image: Pill, title: 'Project 1' },
         { id: 2, image: placeholderImage, title: 'Project 2' },
-        { id: 3, image: placeholderImage, title: 'Project 3' },
-        { id: 4, image: placeholderImage, title: 'Project 4' },
-        { id: 5, image: placeholderImage, title: 'Project 5' },
-        { id: 6, image: placeholderImage, title: 'Project 6' },
+        { id: 3, image: Portfolio, title: 'Project 3' },
+        { id: 4, image: Security, title: 'Project 4' },
+        { id: 5, image: Houseboat, title: 'Project 5' },
+        { id: 6, image: Insurva, title: 'Project 6' },
         { id: 7, image: placeholderImage, title: 'Project 7' },
         { id: 8, image: placeholderImage, title: 'Project 8' },
         { id: 9, image: placeholderImage, title: 'Project 9' },
