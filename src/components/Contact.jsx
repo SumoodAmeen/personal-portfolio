@@ -7,7 +7,7 @@ const Contact = () => {
     const socialIcons = [
         {
             Icon: Github,
-            href: "https://github.com/yourusername",
+            href: "https://github.com/SumoodAmeen",
             className: "hover:bg-accent"
         },
         {
@@ -16,11 +16,11 @@ const Contact = () => {
         },
         {
             Icon: Linkedin,
-            href: "https://linkedin.com/in/yourusername"
+            href: "https://www.linkedin.com/in/mohammed-sumood-ameen-8677b622b/"
         },
         {
             Icon: Instagram,
-            href: "https://instagram.com/yourusername"
+            href: "https://www.instagram.com/mohammedsumoodameen/"
         }
     ]
 

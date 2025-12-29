@@ -1,10 +1,10 @@
 import React from 'react';
 import placeholderImage from '../assets/IMG_6628.JPG';
-import Pill from '../assets/works/pill.png'
+import Pill from '../assets/works/pill.PNG'
 import Insurva from '../assets/works/insurva.png'
-import Portfolio from '../assets/works/portfolio.png'
-import Security from '../assets/works/security.png'
-import Houseboat from '../assets/works/houseboat.png'
+import Portfolio from '../assets/works/portfolio.PNG'
+import Security from '../assets/works/security.PNG'
+import Houseboat from '../assets/works/houseboat.PNG'
 
 const Routes = () => {
     // Project data - you can replace these with actual project data later
@@ -33,7 +33,7 @@ const Routes = () => {
             <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover grayscale group-hover:grayscale-[50%] transition-all duration-300"
+                className="w-full h-full object-cover grayscale group-hover:grayscale-[1%] transition-all duration-300"
             />
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent flex justify-center items-end">
                 <button className="flex items-center gap-1.5 px-4 py-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full text-white text-xs font-medium cursor-pointer transition-all duration-300 hover:bg-white/25 hover:-translate-y-0.5 whitespace-nowrap">
