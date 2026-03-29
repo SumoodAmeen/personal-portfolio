@@ -12,7 +12,7 @@ const Contact = () => {
         },
         {
             Icon: Twitter,
-            href: "https://twitter.com/yourusername"
+            href: "https://x.com/SumoodAmeen"
         },
         {
             Icon: Linkedin,
@@ -25,7 +25,7 @@ const Contact = () => {
     ]
 
     return (
-        <section className='h-[70vh] bg-black w-full relative overflow-hidden'>
+        <section className='h-[60vh] md:h-[70vh] bg-black w-full relative overflow-hidden'>
             {/* Ethereal Shadow Animation Background */}
             <EtheralShadow
                 color="rgba(128, 128, 128, 1)"
@@ -35,8 +35,8 @@ const Contact = () => {
                 className="absolute inset-0"
             >
                 {/* Quote Content */}
-                <div className="flex flex-col items-center justify-center gap-8">
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white text-center leading-tight max-w-4xl">
+                <div className="flex flex-col items-center justify-start pt-0 md:pt-0 md:justify-center gap-8">
+                    <h1 className="text-[25px] md:text-6xl lg:text-7xl font-bold text-white text-center leading-tight max-w-4xl">
                         "Let's connect and create something meaningful."
                     </h1>
 
@@ -50,7 +50,7 @@ const Contact = () => {
             </EtheralShadow>
 
             {/* Footer */}
-            <footer className="absolute bottom-14 left-0 right-0 px-6 md:px-12 py-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
+            <footer className="absolute md:bottom-14 bottom-5 left-0 right-0 px-6 md:px-12 py-6 flex flex-col md:flex-row justify-between items-center text-[8px] text-[12px] text-gray-400 gap-2.5 md:gap-4">
                 <a
                     href="mailto:sumoodameen@gmail.com"
                     className="hover:text-white transition-colors"

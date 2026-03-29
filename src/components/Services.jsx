@@ -1,5 +1,4 @@
 import React from 'react';
-import profileImg from '../assets/IMG_6628.JPG';
 import Shuffle from './ui/Shuffle'
 
 
@@ -20,7 +19,7 @@ const Services = () => {
                     triggerOnce={true}
                     triggerOnHover={true}
                     respectReducedMotion={true}
-                    className="text-gray-400 text-[40px] uppercase tracking-widest"
+                    className="text-gray-400 text-[25px] md:text-[40px] uppercase tracking-widest"
                     style={{ fontFamily: 'Ari, sans-serif' }}
                 />
             </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useId, useEffect } from 'react';
+import React, { useRef, useId, useEffect, useState } from 'react';
 import { animate, useMotionValue } from 'framer-motion';
 
 function mapRange(value, fromLow, fromHigh, toLow, toHigh) {
@@ -14,8 +14,7 @@ function mapRange(value, fromLow, fromHigh, toLow, toHigh) {
 const useInstanceId = () => {
     const id = useId();
     const cleanId = id.replace(/:/g, "");
-    const instanceId = `shadowoverlay-${cleanId}`;
-    return instanceId;
+    return `shadowoverlay-${cleanId}`;
 };
 
 export function EtheralShadow({
@@ -28,6 +27,21 @@ export function EtheralShadow({
     children
 }) {
     const id = useInstanceId();
+
+    // ✅ RESPONSIVE LOGIC
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
     const animationEnabled = animation && animation.scale > 0;
     const feColorMatrixRef = useRef(null);
     const hueRotateMotionValue = useMotionValue(180);
@@ -41,14 +55,14 @@ export function EtheralShadow({
             if (hueRotateAnimation.current) {
                 hueRotateAnimation.current.stop();
             }
+
             hueRotateMotionValue.set(0);
+
             hueRotateAnimation.current = animate(hueRotateMotionValue, 360, {
                 duration: animationDuration / 25,
                 repeat: Infinity,
                 repeatType: "loop",
-                repeatDelay: 0,
                 ease: "linear",
-                delay: 0,
                 onUpdate: (value) => {
                     if (feColorMatrixRef.current) {
                         feColorMatrixRef.current.setAttribute("values", String(value));
@@ -75,6 +89,7 @@ export function EtheralShadow({
                 ...style
             }}
         >
+            {/* SHADOW EFFECT */}
             <div
                 style={{
                     position: "absolute",
@@ -121,6 +136,7 @@ export function EtheralShadow({
                         </defs>
                     </svg>
                 )}
+
                 <div
                     style={{
                         backgroundColor: color,
@@ -134,12 +150,12 @@ export function EtheralShadow({
                 />
             </div>
 
-            {/* Children content layered on top */}
+            {/* ✅ CHILDREN (UPDATED POSITION) */}
             {children && (
                 <div
                     style={{
                         position: "absolute",
-                        top: "50%",
+                        top: isMobile ? "30%" : "50%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
                         textAlign: "center",
@@ -152,6 +168,7 @@ export function EtheralShadow({
                 </div>
             )}
 
+            {/* ✅ NOISE (UNCHANGED, INCLUDED) */}
             {noise && noise.opacity > 0 && (
                 <div
                     style={{
