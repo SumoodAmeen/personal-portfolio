@@ -20,19 +20,19 @@ const AboutMe = () => {
                     triggerOnce={true}
                     triggerOnHover={true}
                     respectReducedMotion={true}
-                    className="text-gray-400 text-[40px] uppercase tracking-widest"
+                    className="text-gray-400 text-[25px] sm:text-[40px] uppercase tracking-wide sm:tracking-widest"
                     style={{ fontFamily: 'Ari, sans-serif' }}
                 />
             </div>
 
-            <div className="w-full flex flex-col md:flex-row gap-12 lg:gap-24 items-center">
+            <div className="w-full flex flex-col-reverse md:flex-row gap-12 lg:gap-24 items-center">
                 {/* Left Side: Text Content */}
                 <div className="flex-1 space-y-8">
-                    <h2 className="text-xl md:text-8xl font-medium tracking-tight">
+                    <h2 className="text-3xl sm:text-5xl md:text-8xl font-medium tracking-tight text-center md:text-left">
                         Mohammed Sumood Ameen
                     </h2>
 
-                    <p className="text-gray-400 text-xl leading-relaxed w-3xl">
+                    <p className="text-gray-400 text-base sm:text-xl leading-relaxed max-w-3xl text-justify md:text-left">
                         I am a Software Developer with a strong focus on building modern, scalable web applications, specializing
                         in React-based development. I work extensively with React, Vite, and Next.js to create fast, responsive,
                         and performance-optimized user interfaces, with an emphasis on clean component architecture, reusability,
@@ -55,7 +55,7 @@ const AboutMe = () => {
                         {['React.js', 'Vite', 'Next.js', 'Tailwind CSS', 'HTML', 'CSS', 'Web Development', 'Python', 'Django'].map((skill, index) => (
                             <span
                                 key={index}
-                                className="px-6 py-6 bg-zinc-900 border border-zinc-800 rounded-lg text-lg text-gray-300 hover:bg-zinc-800 transition-colors cursor-default"
+                                className="px-4 py-3 sm:px-6 sm:py-6 bg-zinc-900 border border-zinc-800 rounded-lg text-sm sm:text-lg text-gray-300 hover:bg-zinc-800 transition-colors cursor-default"
                             >
                                 {skill}
                             </span>
@@ -65,21 +65,21 @@ const AboutMe = () => {
                     <div className="w-full h-px bg-gray-800 my-8"></div>
 
                     {/* Experience List */}
-                    <div className="space-y-6 text-gray-400 text-lg">
-                        <div className="flex justify-between items-center group hover:text-white transition-colors">
-                            <span className="w-1/3">Freelance</span>
-                            <span className="w-1/3">Self Employed</span>
-                            <span className="w-1/3 text-right">2024 - Present</span>
+                    <div className="space-y-6 text-gray-400 text-sm sm:text-lg">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center group hover:text-white transition-colors gap-1 sm:gap-0">
+                            <span className="sm:w-1/3 font-medium">Freelance</span>
+                            <span className="sm:w-1/3">Self Employed</span>
+                            <span className="sm:w-1/3 sm:text-right text-gray-500">2024 - Present</span>
                         </div>
-                        <div className="flex justify-between items-center group hover:text-white transition-colors">
-                            <span className="w-1/3">Frontend Dev</span>
-                            <span className="w-1/3">Tech Studio</span>
-                            <span className="w-1/3 text-right">2023 - 2024</span>
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center group hover:text-white transition-colors gap-1 sm:gap-0">
+                            <span className="sm:w-1/3 font-medium">Frontend Dev</span>
+                            <span className="sm:w-1/3">Tech Studio</span>
+                            <span className="sm:w-1/3 sm:text-right text-gray-500">2023 - 2024</span>
                         </div>
-                        <div className="flex justify-between items-center group hover:text-white transition-colors">
-                            <span className="w-1/3">Intern</span>
-                            <span className="w-1/3">Creative Agency</span>
-                            <span className="w-1/3 text-right">2022 - 2023</span>
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center group hover:text-white transition-colors gap-1 sm:gap-0">
+                            <span className="sm:w-1/3 font-medium">Intern</span>
+                            <span className="sm:w-1/3">Creative Agency</span>
+                            <span className="sm:w-1/3 sm:text-right text-gray-500">2022 - 2023</span>
                         </div>
                     </div>
                 </div>
