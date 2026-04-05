@@ -25,7 +25,7 @@ const Contact = () => {
     ]
 
     return (
-        <section className='h-[60vh] md:h-[70vh] bg-black w-full relative overflow-hidden'>
+        <section id="contact" className='h-[60vh] md:h-[70vh] bg-black w-full relative overflow-hidden'>
             {/* Ethereal Shadow Animation Background */}
             <EtheralShadow
                 color="rgba(128, 128, 128, 1)"

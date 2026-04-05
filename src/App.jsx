@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, createContext } from "react";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -13,13 +13,19 @@ import Services from './components/Services';
 
 gsap.registerPlugin(ScrollTrigger);
 
+export const LenisContext = createContext(null);
+
 function App() {
+  const lenisRef = useRef(null);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
       smooth: true,
       smoothTouch: false,
     });
+
+    lenisRef.current = lenis;
 
     function raf(time) {
       lenis.raf(time);
@@ -31,21 +37,24 @@ function App() {
 
     return () => {
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
   return (
     <>
       {/* your entire website */}
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-        <ClickSpark sparkColor="#fff" sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
-          <Navbar />
-          <Hero />
-          <AboutMe />
-          <Services />
-          <Contact />
-        </ClickSpark>
-      </ThemeProvider>
+      <LenisContext.Provider value={lenisRef}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <ClickSpark sparkColor="#fff" sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
+            <Navbar />
+            <Hero />
+            <AboutMe />
+            <Services />
+            <Contact />
+          </ClickSpark>
+        </ThemeProvider>
+      </LenisContext.Provider>
     </>
   );
 }

@@ -13,20 +13,18 @@ const Hero = () => {
 
             const heading = section.querySelector('.hero-heading');
             const sub = section.querySelector('.hero-sub');
-            const scroll = section.querySelector('.hero-scroll');
 
-            gsap.set([heading, sub, scroll], { opacity: 0, y: 30 });
+            gsap.set([heading, sub], { opacity: 0, y: 30 });
 
             const tl = gsap.timeline({ delay: 0.4 });
             tl.to(heading, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' })
-                .to(sub, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
-                .to(scroll, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3');
+                .to(sub, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5');
         },
         { scope: sectionRef }
     );
 
     return (
-        <section ref={sectionRef} className="h-screen bg-black w-full relative overflow-hidden">
+        <section id="home" ref={sectionRef} className="h-screen bg-black w-full relative overflow-hidden">
             {/* Video Background */}
             <video
                 autoPlay
@@ -53,11 +51,6 @@ const Hero = () => {
                 </p>
             </div>
 
-            {/* Scroll Indicator */}
-            <div className="hero-scroll absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
-                <span className="text-white/30 text-xs tracking-[0.3em] uppercase">Scroll</span>
-                <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
-            </div>
         </section>
     );
 };

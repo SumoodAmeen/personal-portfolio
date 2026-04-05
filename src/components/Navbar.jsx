@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { FeyButton } from './ui/fey-button'
+import { LenisContext } from '../App'
 
 const Navbar = () => {
     const [isVisible, setIsVisible] = useState(true)
     const [lastScrollY, setLastScrollY] = useState(0)
+    const lenisRef = useContext(LenisContext)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -31,7 +33,7 @@ const Navbar = () => {
     const navLinks = [
         { name: 'Home', href: '#home' },
         { name: 'About Me', href: '#about' },
-        { name: 'Works', href: '#works' },
+        { name: 'Services', href: '#services' },
         { name: 'Contact', href: '#contact' },
     ]
 
@@ -61,6 +63,13 @@ const Navbar = () => {
                                     <a
                                         key={link.name}
                                         href={link.href}
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            const target = document.querySelector(link.href)
+                                            if (target && lenisRef?.current) {
+                                                lenisRef.current.scrollTo(target, { offset: 0 })
+                                            }
+                                        }}
                                         className="text-white hover:text-white text-sm font-medium transition-colors duration-200"
                                     >
                                         {link.name}
