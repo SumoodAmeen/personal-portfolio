@@ -52,7 +52,7 @@ const AboutMe = () => {
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-3">
-                        {['React.js', 'Vite', 'Next.js', 'Tailwind CSS', 'HTML', 'CSS', 'Web Development', 'Python', 'Django'].map((skill, index) => (
+                        {['React.js', 'Vite', 'Next.js', 'Tailwind CSS', 'HTML', 'CSS', 'Web Development', 'Python', 'Django', 'Node.js', 'Express.js', 'MongoDB', 'PostgreSQL'].map((skill, index) => (
                             <span
                                 key={index}
                                 className="px-4 py-3 sm:px-6 sm:py-6 bg-zinc-900 border border-zinc-800 rounded-lg text-sm sm:text-lg text-gray-300 hover:bg-zinc-800 transition-colors cursor-default"
