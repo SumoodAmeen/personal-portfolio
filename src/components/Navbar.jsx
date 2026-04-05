@@ -1,34 +1,43 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { FeyButton } from './ui/fey-button'
 import { LenisContext } from '../App'
 
 const Navbar = () => {
     const [isVisible, setIsVisible] = useState(true)
-    const [lastScrollY, setLastScrollY] = useState(0)
+    const [isScrolled, setIsScrolled] = useState(false)
+    const lastScrollY = useRef(0)
+    const idleTimer = useRef(null)
     const lenisRef = useContext(LenisContext)
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY
+            setIsScrolled(currentScrollY > 50)
 
-            // Show navbar when scrolling down, hide when scrolling up
-            if (currentScrollY > lastScrollY && currentScrollY > 50) {
-                // Scrolling up - hide navbar
+            if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+                // Scrolling down — hide
                 setIsVisible(false)
             } else {
-                // Scrolling down - show navbar
+                // Scrolling up — show
                 setIsVisible(true)
             }
 
-            setLastScrollY(currentScrollY)
+            lastScrollY.current = currentScrollY
+
+            // Show navbar after idle
+            clearTimeout(idleTimer.current)
+            idleTimer.current = setTimeout(() => {
+                setIsVisible(true)
+            }, 600)
         }
 
         window.addEventListener('scroll', handleScroll, { passive: true })
 
         return () => {
             window.removeEventListener('scroll', handleScroll)
+            clearTimeout(idleTimer.current)
         }
-    }, [lastScrollY])
+    }, [])
 
     const navLinks = [
         { name: 'Home', href: '#home' },
@@ -39,10 +48,15 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out ${isVisible ? 'translate-y-0' : '-translate-y-full'
-                }`}
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
+                isVisible ? 'translate-y-0' : '-translate-y-full'
+            } ${
+                isScrolled
+                    ? 'bg-white/5 backdrop-blur-xl border-b border-white/10'
+                    : 'bg-transparent'
+            }`}
         >
-            <div className="bg-transparent">
+            <div>
                 <div className="w-[100%] mx-auto px-4 sm:px-6 lg:px-12 lg:py-2">
                     <div className="flex items-center justify-between h-16">
                         {/* Logo */}
