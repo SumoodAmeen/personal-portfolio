@@ -17,6 +17,7 @@ const CustomCursor = () => {
 
   return (
     <div
+      className="hidden md:block"
       style={{
         position: "fixed",
         top: position.y,
