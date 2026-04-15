@@ -42,7 +42,7 @@ export function EtheralShadow({
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
-    const animationEnabled = animation && animation.scale > 0;
+    const animationEnabled = animation && animation.scale > 0 && !isMobile;
     const feColorMatrixRef = useRef(null);
     const hueRotateMotionValue = useMotionValue(180);
     const hueRotateAnimation = useRef(null);
@@ -76,7 +76,7 @@ export function EtheralShadow({
                 }
             };
         }
-    }, [animationEnabled, animationDuration, hueRotateMotionValue]);
+    }, [animationEnabled, animationDuration, hueRotateMotionValue, isMobile]);
 
     return (
         <div
