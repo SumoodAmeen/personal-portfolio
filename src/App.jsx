@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 import { ThemeProvider } from './components/theme-provider';
 import Contact from './components/Contact';
 import Services from './components/Services';
+import Works from './components/Works';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -51,6 +52,7 @@ function App() {
             <Hero />
             <AboutMe />
             <Services />
+            <Works />
             <Contact />
           </ClickSpark>
         </ThemeProvider>
