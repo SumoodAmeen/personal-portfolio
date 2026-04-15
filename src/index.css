@@ -10,6 +10,10 @@ body {
   background-color: #000;
 }
 
+*, *::before, *::after {
+  cursor: none !important;
+}
+
 @import "tailwindcss";
 
 /* shadcn CSS variables for dark theme */

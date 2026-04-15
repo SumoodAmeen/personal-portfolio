@@ -11,6 +11,7 @@ import { ThemeProvider } from './components/theme-provider';
 import Contact from './components/Contact';
 import Services from './components/Services';
 import Works from './components/Works';
+import CustomCursor from "./components/CustomCursor";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,6 +46,7 @@ function App() {
   return (
     <>
       {/* your entire website */}
+      <CustomCursor />
       <LenisContext.Provider value={lenisRef}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <ClickSpark sparkColor="#fff" sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
