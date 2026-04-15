@@ -53,7 +53,7 @@ const Navbar = () => {
             } ${
                 isScrolled
                     ? 'bg-white/5 backdrop-blur-xl border-b border-white/10'
-                    : 'bg-transparent'
+                    : 'bg-transparent border-b border-transparent'
             }`}
         >
             <div>

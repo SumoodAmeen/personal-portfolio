@@ -31,13 +31,11 @@ const Hero = () => {
                 muted
                 loop
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover opacity-40"
+                className="absolute inset-0 w-full h-full object-cover"
             >
                 <source src={heroVideo} type="video/mp4" />
             </video>
 
-            {/* Gradient Overlays */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
 
             {/* Content */}
             <div className="relative z-10 h-full flex flex-col items-center justify-center px-6">
