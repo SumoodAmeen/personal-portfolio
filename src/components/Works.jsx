@@ -1,8 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import Shuffle from './ui/Shuffle';
 
 import houseboatImg from '../assets/works/houseboat.PNG';
 import insurvaImg from '../assets/works/insurva.png';
@@ -13,219 +12,182 @@ import securityImg from '../assets/works/security.PNG';
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
-    {
-        number: '01',
-        title: 'Houseboat Booking',
-        year: '2024',
-        tags: ['React', 'Node.js', 'MongoDB'],
-        image: houseboatImg,
-        href: '#',
-    },
-    {
-        number: '02',
-        title: 'Insurva',
-        year: '2024',
-        tags: ['Next.js', 'Django', 'PostgreSQL'],
-        image: insurvaImg,
-        href: '#',
-    },
-    {
-        number: '03',
-        title: 'Pill Reminder',
-        year: '2023',
-        tags: ['React', 'Express.js', 'MongoDB'],
-        image: pillImg,
-        href: '#',
-    },
-    {
-        number: '04',
-        title: 'Portfolio',
-        year: '2024',
-        tags: ['React', 'GSAP', 'Tailwind'],
-        image: portfolioImg,
-        href: '#',
-    },
-    {
-        number: '05',
-        title: 'Security Platform',
-        year: '2023',
-        tags: ['React', 'Python', 'PostgreSQL'],
-        image: securityImg,
-        href: '#',
-    },
+    { title: 'Houseboat Booking', year: '2024', image: houseboatImg },
+    { title: 'Insurva', year: '2024', image: insurvaImg },
+    { title: 'Pill Reminder', year: '2023', image: pillImg },
+    { title: 'Portfolio', year: '2024', image: portfolioImg },
+    { title: 'Security Platform', year: '2023', image: securityImg },
 ];
 
-const FloatingImage = ({ image, visible, position }) => {
-    const imgRef = useRef(null);
+const years = projects.map((p) => parseInt(p.year, 10));
+const yearRange = `(${Math.min(...years)}—${Math.max(...years)})`;
 
-    useEffect(() => {
-        if (!imgRef.current) return;
-        gsap.to(imgRef.current, {
-            x: position.x,
-            y: position.y,
-            opacity: visible ? 1 : 0,
-            scale: visible ? 1 : 0.85,
-            duration: 0.4,
-            ease: 'power3.out',
-        });
-    }, [position, visible]);
-
-    return (
-        <div
-            ref={imgRef}
-            className="fixed top-0 left-0 z-40 pointer-events-none w-[280px] md:w-[340px] aspect-[16/10] rounded-lg overflow-hidden opacity-0 hidden md:block"
-            style={{ willChange: 'transform, opacity' }}
-        >
-            <img
-                src={image}
-                alt=""
-                className="w-full h-full object-cover"
-            />
-        </div>
-    );
-};
-
-const ProjectRow = ({ project, onHover, onLeave, onMouseMove }) => {
-    const rowRef = useRef(null);
+const Works = () => {
+    const sectionRef = useRef(null);
+    const textRef = useRef(null);
+    const h2Ref = useRef(null);
+    const workRowRef = useRef(null);
+    const spacerRef = useRef(null);
+    const cardRef = useRef(null);
+    const [idx, setIdx] = useState(0);
 
     useGSAP(
         () => {
-            const row = rowRef.current;
-            if (!row) return;
+            const section = sectionRef.current;
+            const text = textRef.current;
+            const h2 = h2Ref.current;
+            const workRow = workRowRef.current;
+            const spacer = spacerRef.current;
+            const card = cardRef.current;
+            if (!section || !text || !h2 || !workRow || !spacer || !card) return;
 
-            const number = row.querySelector('.work-number');
-            const title = row.querySelector('.work-title');
-            const meta = row.querySelector('.work-meta');
-            const line = row.querySelector('.work-line');
+            const ar = 10 / 16;
 
-            gsap.set([number, title, meta], { opacity: 0, y: 40 });
-            gsap.set(line, { scaleX: 0, transformOrigin: 'left center' });
+            const measureWorkCenter = () => {
+                const sRect = section.getBoundingClientRect();
+                const wRect = workRow.getBoundingClientRect();
+                const tTransform = gsap.getProperty(text, 'y') || 0;
+                return wRect.top - sRect.top + wRect.height / 2 - Number(tTransform);
+            };
 
-            ScrollTrigger.create({
-                trigger: row,
-                start: 'top 85%',
-                once: true,
-                onEnter: () => {
-                    const tl = gsap.timeline();
-                    tl.to(line, { scaleX: 1, duration: 0.8, ease: 'power3.inOut' })
-                        .to(number, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
-                        .to(title, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
-                        .to(meta, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3');
+            const getSizes = () => {
+                const vw = window.innerWidth;
+                const vh = window.innerHeight;
+                const isMobile = vw < 768;
+                const startW = isMobile ? 150 : 360;
+                const startH = startW * ar;
+                const endW = isMobile
+                    ? Math.min(vw * 0.88, 420)
+                    : Math.min(vw * 0.5, 560);
+                const workCenterY = measureWorkCenter();
+                const startTop = workCenterY - startH / 2;
+                const cardDrop = vh * (isMobile ? 0.18 : 0.22);
+                const endTop = startTop + cardDrop;
+                const textTravel = vh * (isMobile ? 0.38 : 0.4);
+                return {
+                    vw,
+                    vh,
+                    isMobile,
+                    startW,
+                    endW,
+                    startTop,
+                    endTop,
+                    textTravel,
+                };
+            };
+
+            const { startW, startTop } = getSizes();
+            gsap.set(spacer, { width: startW });
+            gsap.set(card, { width: startW, top: startTop });
+            gsap.set(h2, { '--lh': 0.85 });
+            h2.style.lineHeight = '0.85';
+
+            const st = ScrollTrigger.create({
+                trigger: section,
+                start: 'top top',
+                end: () => `+=${window.innerHeight * 3}`,
+                pin: true,
+                scrub: 1,
+                invalidateOnRefresh: true,
+                onRefresh: () => {
+                    const { startW, startTop } = getSizes();
+                    gsap.set(spacer, { width: startW });
+                    gsap.set(card, { width: startW, top: startTop });
+                },
+                onUpdate: (self) => {
+                    const p = self.progress;
+                    const { startW, endW, startTop, endTop, textTravel } = getSizes();
+
+                    gsap.set(text, { y: -textTravel * p });
+                    h2.style.lineHeight = `${0.85 - 0.2 * p}`;
+                    gsap.set(spacer, { width: startW * (1 - p) });
+                    gsap.set(card, {
+                        width: startW + (endW - startW) * p,
+                        top: startTop + (endTop - startTop) * p,
+                    });
+
+                    const imgP = Math.min(p / 0.95, 1);
+                    const nextIdx = Math.min(
+                        Math.floor(imgP * projects.length),
+                        projects.length - 1
+                    );
+                    setIdx((prev) => (prev !== nextIdx ? nextIdx : prev));
                 },
             });
+
+            return () => st.kill();
         },
-        { scope: rowRef }
+        { scope: sectionRef }
     );
-
-    return (
-        <a
-            ref={rowRef}
-            href={project.href}
-            className="group block cursor-pointer"
-            onMouseEnter={() => onHover(project)}
-            onMouseLeave={onLeave}
-            onMouseMove={onMouseMove}
-        >
-            <div className="work-line w-full h-px bg-zinc-800" />
-
-            <div className="py-8 sm:py-10 md:py-14 flex items-baseline gap-4 sm:gap-6 md:gap-0 md:items-center">
-                {/* Number */}
-                <span
-                    className="work-number text-zinc-600 group-hover:text-zinc-400 text-sm font-mono tracking-widest transition-colors duration-500 md:w-20 shrink-0"
-                    style={{ fontFamily: 'Ari, sans-serif' }}
-                >
-                    {project.number}
-                </span>
-
-                {/* Title */}
-                <h3 className="work-title text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-medium text-white/80 group-hover:text-white tracking-tight transition-colors duration-500 leading-tight flex-1">
-                    {project.title}
-                </h3>
-
-                {/* Meta — tags + year */}
-                <div className="work-meta hidden md:flex items-center gap-6 shrink-0">
-                    <div className="flex gap-2">
-                        {project.tags.map((tag) => (
-                            <span
-                                key={tag}
-                                className="text-xs text-zinc-600 group-hover:text-zinc-400 tracking-wide uppercase transition-colors duration-500"
-                            >
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
-                    <span
-                        className="text-zinc-600 group-hover:text-zinc-400 text-sm font-mono transition-colors duration-500"
-                        style={{ fontFamily: 'Ari, sans-serif' }}
-                    >
-                        {project.year}
-                    </span>
-                </div>
-            </div>
-        </a>
-    );
-};
-
-const Works = () => {
-    const [hoveredProject, setHoveredProject] = useState(null);
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-    const handleHover = (project) => {
-        setHoveredProject(project);
-    };
-
-    const handleLeave = () => {
-        setHoveredProject(null);
-    };
-
-    const handleMouseMove = (e) => {
-        setMousePos({ x: e.clientX + 20, y: e.clientY - 140 });
-    };
 
     return (
         <section
             id="works"
-            className="bg-black text-white py-20 px-6 rounded-t-[50px] border-t border-zinc-800 md:px-12 lg:px-25 w-full flex flex-col items-center"
+            ref={sectionRef}
+            className="relative bg-black text-white rounded-t-[50px] border-t border-zinc-800 w-full overflow-hidden"
+            style={{ height: '100dvh' }}
         >
-            {/* Floating cursor image */}
-            <FloatingImage
-                image={hoveredProject?.image || houseboatImg}
-                visible={!!hoveredProject}
-                position={mousePos}
-            />
-
-            {/* Section Title */}
-            <div className="w-full flex justify-center mb-16 sm:mb-24">
-                <Shuffle
-                    text="Works"
-                    shuffleDirection="right"
-                    duration={0.35}
-                    animationMode="evenodd"
-                    shuffleTimes={1}
-                    ease="power3.out"
-                    stagger={0.03}
-                    threshold={0.1}
-                    triggerOnce={true}
-                    triggerOnHover={true}
-                    respectReducedMotion={true}
-                    className="text-gray-400 text-[25px] md:text-[40px] uppercase tracking-widest"
-                    style={{ fontFamily: 'Ari, sans-serif' }}
-                />
+            {/* Text layer */}
+            <div
+                ref={textRef}
+                className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none will-change-transform"
+            >
+                <h2
+                    ref={h2Ref}
+                    className="font-black select-none w-full"
+                    style={{
+                        fontSize: 'clamp(3.5rem, 19vw, 22rem)',
+                        fontFamily: 'Ari, sans-serif',
+                        letterSpacing: '-0.04em',
+                        lineHeight: 0.85,
+                    }}
+                >
+                    <div className="text-center">PREMIUM</div>
+                    <div
+                        ref={workRowRef}
+                        className="flex items-center justify-center"
+                    >
+                        <span>WO</span>
+                        <div
+                            ref={spacerRef}
+                            className="shrink-0"
+                            style={{ width: 0 }}
+                            aria-hidden
+                        />
+                        <span>RK</span>
+                    </div>
+                </h2>
             </div>
 
-            {/* Project List */}
-            <div className="w-full max-w-6xl">
-                {projects.map((project) => (
-                    <ProjectRow
-                        key={project.number}
-                        project={project}
-                        onHover={handleHover}
-                        onLeave={handleLeave}
-                        onMouseMove={handleMouseMove}
-                    />
-                ))}
-                {/* Bottom line */}
-                <div className="w-full h-px bg-zinc-800" />
+            {/* Card layer */}
+            <div className="absolute inset-0 z-10 pointer-events-none">
+                <div
+                    ref={cardRef}
+                    className="absolute left-1/2 -translate-x-1/2"
+                    style={{ top: 0, width: 0 }}
+                >
+                    <div
+                        className="bg-zinc-900 overflow-hidden shadow-xl relative"
+                        style={{ aspectRatio: '16 / 10' }}
+                    >
+                        {projects.map((project, i) => (
+                            <img
+                                key={project.title}
+                                src={project.image}
+                                alt={project.title}
+                                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-out"
+                                style={{ opacity: i === idx ? 1 : 0 }}
+                            />
+                        ))}
+                    </div>
+                    <div
+                        className="flex justify-between mt-2 sm:mt-3 text-[10px] sm:text-xs text-zinc-400 font-normal whitespace-nowrap"
+                        style={{ fontFamily: 'sans-serif', letterSpacing: 'normal' }}
+                    >
+                        <span>Client work</span>
+                        <span>{yearRange}</span>
+                    </div>
+                </div>
             </div>
         </section>
     );
