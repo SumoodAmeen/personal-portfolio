@@ -12,11 +12,11 @@ import securityImg from '../assets/works/security.PNG';
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
-    { title: 'Houseboat Booking', year: '2024', image: houseboatImg },
-    { title: 'Insurva', year: '2024', image: insurvaImg },
-    { title: 'Pill Reminder', year: '2023', image: pillImg },
-    { title: 'Portfolio', year: '2024', image: portfolioImg },
-    { title: 'Security Platform', year: '2023', image: securityImg },
+    { title: 'Houseboat Booking', year: '2024', image: houseboatImg, url: '#' },
+    { title: 'Insurva', year: '2024', image: insurvaImg, url: 'https://insurvaassist.com/' },
+    { title: 'Pill Reminder', year: '2023', image: pillImg, url: '#' },
+    { title: 'Portfolio', year: '2024', image: portfolioImg, url: 'https://www.sumoodameen.xyz/' },
+    { title: 'Security Platform', year: '2023', image: securityImg, url: 'https://www.axinorsecurity.com/' },
 ];
 
 const years = projects.map((p) => parseInt(p.year, 10));
@@ -167,12 +167,16 @@ const Works = () => {
             <div className="absolute inset-0 z-10 pointer-events-none">
                 <div
                     ref={cardRef}
-                    className="absolute left-1/2 -translate-x-1/2"
+                    className="absolute left-1/2 -translate-x-1/2 pointer-events-auto"
                     style={{ top: 0, width: 0 }}
                 >
-                    <div
-                        className="bg-zinc-900 overflow-hidden shadow-xl relative"
+                    <a
+                        href={projects[idx].url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block bg-zinc-900 overflow-hidden shadow-xl relative cursor-pointer"
                         style={{ aspectRatio: '16 / 10' }}
+                        aria-label={`Open ${projects[idx].title}`}
                     >
                         {projects.map((project, i) => (
                             <img
@@ -183,7 +187,7 @@ const Works = () => {
                                 style={{ opacity: i === idx ? 1 : 0 }}
                             />
                         ))}
-                    </div>
+                    </a>
                     <div
                         className="flex justify-between mt-2 sm:mt-3 text-[10px] sm:text-xs text-zinc-400 font-normal whitespace-nowrap"
                         style={{ fontFamily: 'sans-serif', letterSpacing: 'normal' }}
