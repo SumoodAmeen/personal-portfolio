@@ -57,12 +57,16 @@ const Works = () => {
                 const startW = isMobile ? 150 : 360;
                 const startH = startW * ar;
                 const endW = isMobile
-                    ? Math.min(vw * 0.88, 420)
-                    : Math.min(vw * 0.5, 560);
+                    ? Math.min(vw * 0.85, 340)
+                    : Math.min(vw * 0.38, 440);
+                const endH = endW * ar;
                 const workCenterY = measureWorkCenter();
                 const startTop = workCenterY - startH / 2;
-                const cardDrop = vh * (isMobile ? 0.18 : 0.22);
-                const endTop = startTop + cardDrop;
+                const bottomPad = isMobile ? 50 : 70;
+                const maxEndTop = vh - endH - bottomPad;
+                const preferredEndTop =
+                    startTop + vh * (isMobile ? 0.18 : 0.22);
+                const endTop = Math.min(preferredEndTop, maxEndTop);
                 const textTravel = vh * (isMobile ? 0.38 : 0.4);
                 return {
                     vw,
