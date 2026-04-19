@@ -1,4 +1,4 @@
-import { useEffect, useRef, createContext } from "react";
+import { useEffect, useRef, useState, createContext } from "react";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -12,6 +12,7 @@ import Contact from './components/Contact';
 import Services from './components/Services';
 import Works from './components/Works';
 import CustomCursor from "./components/CustomCursor";
+import Preloader from "./components/Preloader";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,6 +20,7 @@ export const LenisContext = createContext(null);
 
 function App() {
   const lenisRef = useRef(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -43,8 +45,20 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (loading) {
+      document.body.style.overflow = 'hidden';
+      lenisRef.current?.stop?.();
+    } else {
+      document.body.style.overflow = '';
+      lenisRef.current?.start?.();
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [loading]);
+
   return (
     <>
+      {loading && <Preloader onFinish={() => setLoading(false)} />}
       {/* your entire website */}
       <CustomCursor />
       <LenisContext.Provider value={lenisRef}>
