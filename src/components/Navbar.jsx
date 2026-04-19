@@ -15,6 +15,39 @@ const StarIcon = ({ className }) => (
     </svg>
 )
 
+const formatISTTime = (date) => {
+    return new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+    }).format(date)
+}
+
+const Clock = ({ className = '' }) => {
+    const [time, setTime] = useState(() => formatISTTime(new Date()))
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            setTime(formatISTTime(new Date()))
+        }, 1000)
+        return () => clearInterval(id)
+    }, [])
+
+    return (
+        <div
+            className={`inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md pl-1.5 pr-3 py-1 ${className}`}
+        >
+            <span className="relative w-5 h-5 rounded-full bg-black/60 flex items-center justify-center overflow-hidden">
+                <span className="absolute w-1.5 h-1.5 rounded-full bg-white/80" />
+            </span>
+            <span className="text-[11px] font-semibold text-white tracking-wider">IST</span>
+            <span className="text-[11px] font-mono text-white/80 tabular-nums">{time}</span>
+        </div>
+    )
+}
+
 const Navbar = () => {
     const [isVisible, setIsVisible] = useState(true)
     const [isScrolled, setIsScrolled] = useState(false)
@@ -89,9 +122,9 @@ const Navbar = () => {
                 }`}
             >
                 <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 lg:py-2">
-                    <div className="flex items-center justify-between h-16">
-                        {/* Logo */}
-                        <div className="flex-shrink-0">
+                    <div className="relative flex items-center justify-between h-16">
+                        {/* Logo + Clock (desktop) */}
+                        <div className="flex-shrink-0 flex items-center gap-4">
                             <a
                                 href="#"
                                 className="text-2xl font-bold text-white tracking-wider"
@@ -99,6 +132,14 @@ const Navbar = () => {
                             >
                                 MSA
                             </a>
+                            <div className="hidden md:block">
+                                <Clock />
+                            </div>
+                        </div>
+
+                        {/* Clock (mobile, centered) */}
+                        <div className="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                            <Clock />
                         </div>
 
                         {/* Desktop Navigation Links */}
