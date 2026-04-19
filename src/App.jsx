@@ -46,14 +46,42 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
     if (loading) {
-      document.body.style.overflow = 'hidden';
+      html.style.overflow = 'hidden';
+      html.style.height = '100%';
+      body.style.overflow = 'hidden';
+      body.style.position = 'fixed';
+      body.style.top = '0';
+      body.style.left = '0';
+      body.style.right = '0';
+      body.style.width = '100%';
+      body.style.height = '100%';
       lenisRef.current?.stop?.();
     } else {
-      document.body.style.overflow = '';
+      html.style.overflow = '';
+      html.style.height = '';
+      body.style.overflow = '';
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+      body.style.height = '';
       lenisRef.current?.start?.();
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      html.style.overflow = '';
+      html.style.height = '';
+      body.style.overflow = '';
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+      body.style.height = '';
+    };
   }, [loading]);
 
   return (

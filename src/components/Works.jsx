@@ -1,7 +1,4 @@
-import React, { useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
+import React from 'react';
 
 import houseboatImg from '../assets/works/houseboat.PNG';
 import insurvaImg from '../assets/works/insurva.png';
@@ -9,192 +6,118 @@ import pillImg from '../assets/works/pill.PNG';
 import portfolioImg from '../assets/works/portfolio.PNG';
 import securityImg from '../assets/works/security.PNG';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const projects = [
-    { title: 'Houseboat Booking', year: '2024', image: houseboatImg, url: '#' },
-    { title: 'Insurva', year: '2024', image: insurvaImg, url: 'https://insurvaassist.com/' },
-    { title: 'Pill Reminder', year: '2023', image: pillImg, url: '#' },
-    { title: 'Portfolio', year: '2024', image: portfolioImg, url: 'https://www.sumoodameen.xyz/' },
-    { title: 'Security Platform', year: '2023', image: securityImg, url: 'https://www.axinorsecurity.com/' },
+    {
+        title: 'Houseboat Booking',
+        category: 'Web Development',
+        year: '2024',
+        image: houseboatImg,
+        url: '#',
+    },
+    {
+        title: 'Insurva',
+        category: 'Web Development',
+        year: '2024',
+        image: insurvaImg,
+        url: 'https://insurvaassist.com/',
+    },
+    {
+        title: 'Pill Reminder',
+        category: 'Mobile App',
+        year: '2023',
+        image: pillImg,
+        url: '#',
+    },
+    {
+        title: 'Portfolio',
+        category: 'Web Design',
+        year: '2024',
+        image: portfolioImg,
+        url: 'https://www.sumoodameen.xyz/',
+    },
+    {
+        title: 'Security Platform',
+        category: 'Web Development',
+        year: '2023',
+        image: securityImg,
+        url: 'https://www.axinorsecurity.com/',
+    },
 ];
 
-const years = projects.map((p) => parseInt(p.year, 10));
-const yearRange = `(${Math.min(...years)}—${Math.max(...years)})`;
-
 const Works = () => {
-    const sectionRef = useRef(null);
-    const textRef = useRef(null);
-    const h2Ref = useRef(null);
-    const workRowRef = useRef(null);
-    const spacerRef = useRef(null);
-    const cardRef = useRef(null);
-    const [idx, setIdx] = useState(0);
-
-    useGSAP(
-        () => {
-            const section = sectionRef.current;
-            const text = textRef.current;
-            const h2 = h2Ref.current;
-            const workRow = workRowRef.current;
-            const spacer = spacerRef.current;
-            const card = cardRef.current;
-            if (!section || !text || !h2 || !workRow || !spacer || !card) return;
-
-            const ar = 10 / 16;
-
-            const measureWorkCenter = () => {
-                const sRect = section.getBoundingClientRect();
-                const wRect = workRow.getBoundingClientRect();
-                const tTransform = gsap.getProperty(text, 'y') || 0;
-                return wRect.top - sRect.top + wRect.height / 2 - Number(tTransform);
-            };
-
-            const getSizes = () => {
-                const vw = window.innerWidth;
-                const vh = window.innerHeight;
-                const isMobile = vw < 768;
-                const startW = isMobile ? 150 : 360;
-                const startH = startW * ar;
-                const endW = isMobile
-                    ? Math.min(vw * 0.85, 340)
-                    : Math.min(vw * 0.38, 440);
-                const endH = endW * ar;
-                const workCenterY = measureWorkCenter();
-                const startTop = workCenterY - startH / 2;
-                const bottomPad = isMobile ? 50 : 70;
-                const maxEndTop = vh - endH - bottomPad;
-                const preferredEndTop =
-                    startTop + vh * (isMobile ? 0.18 : 0.22);
-                const endTop = Math.min(preferredEndTop, maxEndTop);
-                const textTravel = vh * (isMobile ? 0.38 : 0.4);
-                return {
-                    vw,
-                    vh,
-                    isMobile,
-                    startW,
-                    endW,
-                    startTop,
-                    endTop,
-                    textTravel,
-                };
-            };
-
-            const { startW, startTop } = getSizes();
-            gsap.set(spacer, { width: startW });
-            gsap.set(card, { width: startW, top: startTop });
-            gsap.set(h2, { '--lh': 0.85 });
-            h2.style.lineHeight = '0.85';
-
-            const st = ScrollTrigger.create({
-                trigger: section,
-                start: 'top top',
-                end: () => `+=${window.innerHeight * 3}`,
-                pin: true,
-                scrub: 1,
-                invalidateOnRefresh: true,
-                onRefresh: () => {
-                    const { startW, startTop } = getSizes();
-                    gsap.set(spacer, { width: startW });
-                    gsap.set(card, { width: startW, top: startTop });
-                },
-                onUpdate: (self) => {
-                    const p = self.progress;
-                    const { startW, endW, startTop, endTop, textTravel } = getSizes();
-
-                    gsap.set(text, { y: -textTravel * p });
-                    h2.style.lineHeight = `${0.85 - 0.2 * p}`;
-                    gsap.set(spacer, { width: startW * (1 - p) });
-                    gsap.set(card, {
-                        width: startW + (endW - startW) * p,
-                        top: startTop + (endTop - startTop) * p,
-                    });
-
-                    const imgP = Math.min(p / 0.95, 1);
-                    const nextIdx = Math.min(
-                        Math.floor(imgP * projects.length),
-                        projects.length - 1
-                    );
-                    setIdx((prev) => (prev !== nextIdx ? nextIdx : prev));
-                },
-            });
-
-            return () => st.kill();
-        },
-        { scope: sectionRef }
-    );
-
     return (
         <section
             id="works"
-            ref={sectionRef}
-            className="relative bg-black text-white rounded-t-[50px] border-t border-zinc-800 w-full overflow-hidden"
-            style={{ height: '100dvh' }}
+            className="relative bg-black text-white rounded-t-[50px] border-t border-zinc-800 w-full overflow-hidden px-5 sm:px-8 md:px-12 lg:px-16 py-16 md:py-24"
         >
-            {/* Text layer */}
-            <div
-                ref={textRef}
-                className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none will-change-transform"
-            >
-                <h2
-                    ref={h2Ref}
-                    className="font-black select-none w-full"
-                    style={{
-                        fontSize: 'clamp(3.5rem, 19vw, 22rem)',
-                        fontFamily: 'Ari, sans-serif',
-                        letterSpacing: '-0.04em',
-                        lineHeight: 0.85,
-                    }}
-                >
-                    <div className="text-center">PREMIUM</div>
-                    <div
-                        ref={workRowRef}
-                        className="flex items-center justify-center"
+            <div className="max-w-[1400px] mx-auto">
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 md:gap-8 mb-10 md:mb-14">
+                    <h2
+                        className="font-black leading-[0.85] tracking-tighter uppercase"
+                        style={{
+                            fontFamily: 'Ari, sans-serif',
+                            fontSize: 'clamp(3rem, 10vw, 9rem)',
+                            letterSpacing: '-0.04em',
+                        }}
                     >
-                        <span>WO</span>
-                        <div
-                            ref={spacerRef}
-                            className="shrink-0"
-                            style={{ width: 0 }}
-                            aria-hidden
-                        />
-                        <span>RK</span>
-                    </div>
-                </h2>
-            </div>
+                        Selected
+                        <br />
+                        Work
+                    </h2>
+                    <p className="text-[10px] sm:text-xs uppercase text-zinc-400 tracking-[0.15em] leading-relaxed max-w-xs md:text-right md:pt-4">
+                        Impactful solutions that
+                        <br className="hidden md:block" /> stand out,
+                        capture attention,
+                        <br className="hidden md:block" /> and drive measurable
+                        success
+                    </p>
+                </div>
 
-            {/* Card layer */}
-            <div className="absolute inset-0 z-10 pointer-events-none">
-                <div
-                    ref={cardRef}
-                    className="absolute left-1/2 -translate-x-1/2 pointer-events-auto"
-                    style={{ top: 0, width: 0 }}
-                >
-                    <a
-                        href={projects[idx].url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block bg-zinc-900 overflow-hidden shadow-xl relative cursor-pointer"
-                        style={{ aspectRatio: '16 / 10' }}
-                        aria-label={`Open ${projects[idx].title}`}
-                    >
-                        {projects.map((project, i) => (
-                            <img
-                                key={project.title}
-                                src={project.image}
-                                alt={project.title}
-                                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-out"
-                                style={{ opacity: i === idx ? 1 : 0 }}
-                            />
-                        ))}
-                    </a>
-                    <div
-                        className="flex justify-between mt-2 sm:mt-3 text-[10px] sm:text-xs text-zinc-400 font-normal whitespace-nowrap"
-                        style={{ fontFamily: 'sans-serif', letterSpacing: 'normal' }}
-                    >
-                        <span>Client work</span>
-                        <span>{yearRange}</span>
-                    </div>
+                {/* Latest work label */}
+                <div className="text-[10px] sm:text-xs uppercase text-zinc-500 tracking-[0.2em] mb-5 md:mb-6">
+                    Latest Work
+                </div>
+
+                {/* Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    {projects.map((project) => (
+                        <a
+                            key={project.title}
+                            href={project.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group bg-zinc-900/80 rounded-2xl md:rounded-3xl p-3 md:p-4 border border-zinc-800/60 transition-colors hover:border-zinc-700"
+                        >
+                            <div className="overflow-hidden rounded-xl md:rounded-2xl bg-zinc-800 aspect-[16/10]">
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                />
+                            </div>
+
+                            <div className="flex items-end justify-between mt-4 md:mt-5 px-1 md:px-2">
+                                <div className="flex flex-col gap-1">
+                                    <div className="flex items-center gap-2">
+                                        <span className="flex gap-1">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-zinc-600" />
+                                            <span className="w-1.5 h-1.5 rounded-full bg-zinc-600" />
+                                        </span>
+                                        <span className="text-sm md:text-base font-medium text-white">
+                                            {project.title}
+                                        </span>
+                                    </div>
+                                    <span className="text-[10px] sm:text-xs text-zinc-500 ml-[22px]">
+                                        {project.category}
+                                    </span>
+                                </div>
+                                <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-zinc-400 group-hover:text-white transition-colors">
+                                    Explore
+                                </span>
+                            </div>
+                        </a>
+                    ))}
                 </div>
             </div>
         </section>
