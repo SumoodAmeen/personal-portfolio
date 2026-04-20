@@ -3,45 +3,54 @@ import React from 'react';
 import houseboatImg from '../assets/works/houseboat.PNG';
 import insurvaImg from '../assets/works/insurva.png';
 import pillImg from '../assets/works/pill.PNG';
-import portfolioImg from '../assets/works/portfolio.PNG';
-import securityImg from '../assets/works/security.PNG';
+import portfolioImg from '../assets/works/portfolio.png';
+import securityImg from '../assets/works/security.png';
+import tipperImg from '../assets/works/tipper.png';
 
 const projects = [
     {
-        title: 'Houseboat Booking',
-        category: 'Web Development',
-        year: '2024',
-        image: houseboatImg,
-        url: '#',
-    },
-    {
-        title: 'Insurva',
-        category: 'Web Development',
-        year: '2024',
-        image: insurvaImg,
-        url: 'https://insurvaassist.com/',
-    },
-    {
-        title: 'Pill Reminder',
+        title: 'Tipper App',
         category: 'Mobile App',
-        year: '2023',
-        image: pillImg,
-        url: '#',
+        year: '2026',
+        image: tipperImg,
+        url: 'https://www.tipperapp.in/',
     },
     {
         title: 'Portfolio',
         category: 'Web Design',
-        year: '2024',
+        year: '2026',
         image: portfolioImg,
         url: 'https://www.sumoodameen.xyz/',
     },
     {
+        title: 'Insurva',
+        category: 'Web Development',
+        year: '2026',
+        image: insurvaImg,
+        url: 'https://insurvaassist.com/',
+    },
+    {
         title: 'Security Platform',
         category: 'Web Development',
-        year: '2023',
+        year: '2025',
         image: securityImg,
         url: 'https://www.axinorsecurity.com/',
     },
+    {
+        title: 'Houseboat Booking',
+        category: 'Web Development',
+        year: '2025',
+        image: houseboatImg,
+        url: '#',
+    },
+    {
+        title: 'Pill Reminder',
+        category: 'Mobile App',
+        year: '2025',
+        image: pillImg,
+        url: '#',
+    },
+    
 ];
 
 const Works = () => {

@@ -2,8 +2,8 @@ import React from 'react';
 import placeholderImage from '../assets/IMG_6628.JPG';
 import Pill from '../assets/works/pill.PNG'
 import Insurva from '../assets/works/insurva.png'
-import Portfolio from '../assets/works/portfolio.PNG'
-import Security from '../assets/works/security.PNG'
+import Portfolio from '../assets/works/portfolio.png'
+import Security from '../assets/works/security.png'
 import Houseboat from '../assets/works/houseboat.PNG'
 
 const Routes = () => {
