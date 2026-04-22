@@ -36,13 +36,14 @@ const LockIcon = ({ className }) => {
 export function FeyButton({
     className,
     children,
+    as: Component = "button",
     ...props
 }) {
     const { resolvedTheme } = useTheme()
     const isDark = resolvedTheme === 'dark'
 
     return (
-        <button
+        <Component
             className={cn(
                 "group relative flex items-center justify-center gap-1",
                 "h-8 min-w-[136px] whitespace-nowrap rounded-[28px] px-3 py-2",
@@ -78,6 +79,6 @@ export function FeyButton({
                 <LockIcon />
                 {children}
             </span>
-        </button>
+        </Component>
     )
 }

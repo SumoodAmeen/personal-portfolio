@@ -110,15 +110,6 @@ const Navbar = () => {
         }
     }
 
-    const handleResumeDownload = () => {
-        setMenuOpen(false)
-        const link = document.createElement('a')
-        link.href = '/resume.pdf'
-        link.download = 'Mohammed-Sumood-Ameen-Resume.pdf'
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
-    }
 
     return (
         <>
@@ -170,7 +161,14 @@ const Navbar = () => {
 
                         {/* Desktop Resume Button */}
                         <div className="hidden md:block flex-shrink-0">
-                            <FeyButton onClick={handleResumeDownload}>
+                            <FeyButton
+                                as="a"
+                                href="/resume.pdf"
+                                download="Mohammed-Sumood-Ameen-Resume.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => setMenuOpen(false)}
+                            >
                                 Resume
                             </FeyButton>
                         </div>
@@ -238,7 +236,14 @@ const Navbar = () => {
                                 transitionDelay: menuOpen ? `${navLinks.length * 60}ms` : '0ms',
                             }}
                         >
-                            <FeyButton onClick={handleResumeDownload}>
+                            <FeyButton
+                                as="a"
+                                href="/resume.pdf"
+                                download="Mohammed-Sumood-Ameen-Resume.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => setMenuOpen(false)}
+                            >
                                 Resume
                             </FeyButton>
                         </div>
