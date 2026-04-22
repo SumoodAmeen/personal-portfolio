@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { FeyButton } from './ui/fey-button'
 import { LenisContext } from '../App'
-import resumePdf from '../assets/resume/resume.pdf'
 
 const StarIcon = ({ className }) => (
     <svg
@@ -111,14 +110,22 @@ const Navbar = () => {
         }
     }
 
-    const handleResumeDownload = () => {
-        const link = document.createElement('a')
-        link.href = resumePdf
-        link.download = 'Mohammed-Sumood-Ameen-Resume.pdf'
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+    const handleResumeDownload = async () => {
         setMenuOpen(false)
+        try {
+            const response = await fetch('/resume.pdf')
+            const blob = await response.blob()
+            const url = window.URL.createObjectURL(blob)
+            const link = document.createElement('a')
+            link.href = url
+            link.download = 'Mohammed-Sumood-Ameen-Resume.pdf'
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+            window.URL.revokeObjectURL(url)
+        } catch (err) {
+            window.open('/resume.pdf', '_blank')
+        }
     }
 
     return (
