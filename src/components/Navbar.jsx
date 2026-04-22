@@ -163,7 +163,7 @@ const Navbar = () => {
                         <div className="hidden md:block flex-shrink-0">
                             <FeyButton
                                 as="a"
-                                href="/resume.pdf"
+                                href="/resume-v2.pdf"
                                 download="Mohammed-Sumood-Ameen-Resume.pdf"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -238,7 +238,7 @@ const Navbar = () => {
                         >
                             <FeyButton
                                 as="a"
-                                href="/resume.pdf"
+                                href="/resume-v2.pdf"
                                 download="Mohammed-Sumood-Ameen-Resume.pdf"
                                 target="_blank"
                                 rel="noopener noreferrer"

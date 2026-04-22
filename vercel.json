@@ -1,11 +1,15 @@
 {
   "headers": [
     {
-      "source": "/resume.pdf",
+      "source": "/resume-v2.pdf",
       "headers": [
         {
           "key": "Content-Disposition",
           "value": "attachment; filename=\"Mohammed-Sumood-Ameen-Resume.pdf\""
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
         }
       ]
     }
