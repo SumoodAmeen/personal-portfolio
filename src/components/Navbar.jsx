@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { FeyButton } from './ui/fey-button'
 import { LenisContext } from '../App'
+import resumePdf from '../assets/resume/resume.pdf'
 
 const StarIcon = ({ className }) => (
     <svg
@@ -110,6 +111,16 @@ const Navbar = () => {
         }
     }
 
+    const handleResumeDownload = () => {
+        const link = document.createElement('a')
+        link.href = resumePdf
+        link.download = 'Mohammed-Sumood-Ameen-Resume.pdf'
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        setMenuOpen(false)
+    }
+
     return (
         <>
             <nav
@@ -160,7 +171,7 @@ const Navbar = () => {
 
                         {/* Desktop Resume Button */}
                         <div className="hidden md:block flex-shrink-0">
-                            <FeyButton>
+                            <FeyButton onClick={handleResumeDownload}>
                                 Resume
                             </FeyButton>
                         </div>
@@ -228,7 +239,7 @@ const Navbar = () => {
                                 transitionDelay: menuOpen ? `${navLinks.length * 60}ms` : '0ms',
                             }}
                         >
-                            <FeyButton>
+                            <FeyButton onClick={handleResumeDownload}>
                                 Resume
                             </FeyButton>
                         </div>
