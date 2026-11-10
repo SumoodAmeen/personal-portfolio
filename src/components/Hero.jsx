@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import heroVideo1080 from '../assets/hero-1080.mp4';
 import heroVideo720 from '../assets/hero-720.mp4';
 import heroPoster from '../assets/hero-poster.webp';
+import heroFallback from '../assets/hero-fallback.webp';
 
 // Small screens get the lighter 720p encode
 const heroVideo =
@@ -14,6 +15,10 @@ const heroVideo =
 const Hero = () => {
     const sectionRef = useRef(null);
     const videoRef = useRef(null);
+    // True when the browser refuses to autoplay the video (iOS Low Power
+    // Mode, data/battery saver, in-app browsers). An animated image is not
+    // subject to autoplay rules, so it stands in until the video can play.
+    const [autoplayBlocked, setAutoplayBlocked] = useState(false);
 
     // Mobile browsers only allow autoplay for videos that are muted at the
     // attribute level, and React sets `muted` as a property only. Force it,
@@ -32,8 +37,14 @@ const Hero = () => {
         const tryPlay = () => {
             if (!video.paused) return;
             const p = video.play();
-            if (p && typeof p.catch === 'function') p.catch(() => {});
+            if (p && typeof p.catch === 'function') {
+                p.catch((err) => {
+                    if (err?.name === 'NotAllowedError') setAutoplayBlocked(true);
+                });
+            }
         };
+
+        const onPlaying = () => setAutoplayBlocked(false);
 
         const onVisible = () => {
             if (document.visibilityState === 'visible') tryPlay();
@@ -41,12 +52,14 @@ const Hero = () => {
 
         tryPlay();
         video.addEventListener('canplay', tryPlay);
+        video.addEventListener('playing', onPlaying);
         document.addEventListener('visibilitychange', onVisible);
         window.addEventListener('touchstart', tryPlay, { passive: true });
         window.addEventListener('click', tryPlay);
 
         return () => {
             video.removeEventListener('canplay', tryPlay);
+            video.removeEventListener('playing', onPlaying);
             document.removeEventListener('visibilitychange', onVisible);
             window.removeEventListener('touchstart', tryPlay);
             window.removeEventListener('click', tryPlay);
@@ -84,6 +97,14 @@ const Hero = () => {
                 poster={heroPoster}
                 className="absolute inset-0 w-full h-full object-cover"
             />
+            {autoplayBlocked && (
+                <img
+                    src={heroFallback}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
+            )}
 
 
             {/* Content */}
