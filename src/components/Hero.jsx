@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import heroVideo1080 from '../assets/hero-1080.mp4';
@@ -13,6 +13,45 @@ const heroVideo =
 
 const Hero = () => {
     const sectionRef = useRef(null);
+    const videoRef = useRef(null);
+
+    // Mobile browsers only allow autoplay for videos that are muted at the
+    // attribute level, and React sets `muted` as a property only. Force it,
+    // start playback explicitly, and retry when the browser blocks it
+    // (e.g. until the first touch, or after returning to the tab).
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        video.muted = true;
+        video.defaultMuted = true;
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+
+        const tryPlay = () => {
+            if (!video.paused) return;
+            const p = video.play();
+            if (p && typeof p.catch === 'function') p.catch(() => {});
+        };
+
+        const onVisible = () => {
+            if (document.visibilityState === 'visible') tryPlay();
+        };
+
+        tryPlay();
+        video.addEventListener('canplay', tryPlay);
+        document.addEventListener('visibilitychange', onVisible);
+        window.addEventListener('touchstart', tryPlay, { passive: true });
+        window.addEventListener('click', tryPlay);
+
+        return () => {
+            video.removeEventListener('canplay', tryPlay);
+            document.removeEventListener('visibilitychange', onVisible);
+            window.removeEventListener('touchstart', tryPlay);
+            window.removeEventListener('click', tryPlay);
+        };
+    }, []);
 
     useGSAP(
         () => {
@@ -35,6 +74,8 @@ const Hero = () => {
         <section id="home" ref={sectionRef} className="h-screen bg-black w-full relative overflow-hidden">
             {/* Video Background */}
             <video
+                ref={videoRef}
+                src={heroVideo}
                 autoPlay
                 muted
                 loop
@@ -42,9 +83,7 @@ const Hero = () => {
                 preload="auto"
                 poster={heroPoster}
                 className="absolute inset-0 w-full h-full object-cover"
-            >
-                <source src={heroVideo} type="video/mp4" />
-            </video>
+            />
 
 
             {/* Content */}
