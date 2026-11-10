@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const cursorRef = useRef(null);
 
   useEffect(() => {
+    // Move via transform directly on the DOM node: no React re-render and
+    // no layout work on every mousemove.
     const moveCursor = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      const el = cursorRef.current;
+      if (!el) return;
+      el.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
     };
 
-    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mousemove", moveCursor, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
@@ -17,14 +21,16 @@ const CustomCursor = () => {
 
   return (
     <div
+      ref={cursorRef}
       className="hidden md:block"
       style={{
         position: "fixed",
-        top: position.y,
-        left: position.x,
+        top: 0,
+        left: 0,
         pointerEvents: "none",
         zIndex: 9999,
         transform: "translate(-50%, -50%)",
+        willChange: "transform",
       }}
     >
       <svg

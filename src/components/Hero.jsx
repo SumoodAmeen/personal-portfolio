@@ -1,7 +1,15 @@
 import React, { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
-import heroVideo from '../assets/video.mp4';
+import heroVideo1080 from '../assets/hero-1080.mp4';
+import heroVideo720 from '../assets/hero-720.mp4';
+import heroPoster from '../assets/hero-poster.webp';
+
+// Small screens get the lighter 720p encode
+const heroVideo =
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
+        ? heroVideo720
+        : heroVideo1080;
 
 const Hero = () => {
     const sectionRef = useRef(null);
@@ -31,6 +39,8 @@ const Hero = () => {
                 muted
                 loop
                 playsInline
+                preload="auto"
+                poster={heroPoster}
                 className="absolute inset-0 w-full h-full object-cover"
             >
                 <source src={heroVideo} type="video/mp4" />

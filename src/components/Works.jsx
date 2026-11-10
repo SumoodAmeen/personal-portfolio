@@ -1,11 +1,11 @@
 import React from 'react';
 
-import houseboatImg from '../assets/works/houseboat.PNG';
-import insurvaImg from '../assets/works/insurva.png';
-import pillImg from '../assets/works/pill.PNG';
-import portfolioImg from '../assets/works/portfolio.png';
-import securityImg from '../assets/works/security.png';
-import tipperImg from '../assets/works/tipper.png';
+import houseboatImg from '../assets/works/houseboat.webp';
+import insurvaImg from '../assets/works/insurva.webp';
+import pillImg from '../assets/works/pill.webp';
+import portfolioImg from '../assets/works/portfolio.webp';
+import securityImg from '../assets/works/security.webp';
+import tipperImg from '../assets/works/tipper.webp';
 
 const projects = [
     {
@@ -102,6 +102,8 @@ const Works = () => {
                                 <img
                                     src={project.image}
                                     alt={project.title}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 />
                             </div>

@@ -1,10 +1,10 @@
 import React from 'react';
-import placeholderImage from '../assets/IMG_6628.JPG';
-import Pill from '../assets/works/pill.PNG'
-import Insurva from '../assets/works/insurva.png'
-import Portfolio from '../assets/works/portfolio.png'
-import Security from '../assets/works/security.png'
-import Houseboat from '../assets/works/houseboat.PNG'
+import placeholderImage from '../assets/profile.webp';
+import Pill from '../assets/works/pill.webp'
+import Insurva from '../assets/works/insurva.webp'
+import Portfolio from '../assets/works/portfolio.webp'
+import Security from '../assets/works/security.webp'
+import Houseboat from '../assets/works/houseboat.webp'
 
 const Routes = () => {
     // Project data - you can replace these with actual project data later

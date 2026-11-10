@@ -1,5 +1,5 @@
 import React from 'react';
-import profileImg from '../assets/IMG_6628.JPG';
+import profileImg from '../assets/profile.webp';
 import Shuffle from './ui/Shuffle'
 
 
@@ -90,6 +90,8 @@ const AboutMe = () => {
                         <img
                             src={profileImg}
                             alt="Sumood Ameen"
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity"
                         />
                     </div>
